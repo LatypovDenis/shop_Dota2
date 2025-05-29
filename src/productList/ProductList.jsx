@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 import './productList.css';
+import axios from "axios";
 import {ProductItem} from "./Productitem/Productitem";
 // import {useTelegram} from "..?/../hooks/useTelegram";
-import axios from "axios";
 
 export const ProductList = () => {
 const products = [
@@ -27,12 +27,12 @@ const products = [
         const { name, value } = e.target;
         setFormData({ ...FormData, [name]: value});
     };
-    //const handleSubmit = (e) => {
-    //    e.preventDefault();
-    //    console.log('Заказ оформлен:', { cart, FormData });
-    //    setCart([]);
-    //    setFormData({ name: '', password: '', email: '' });
-    //};
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log('Заказ оформлен:', { cart, FormData });
+        setCart([]);
+        setFormData({ name: '', password: '', email: '' });
+    };
     const onRemove = (productId) => {
         setCart([]);
     };
@@ -46,14 +46,14 @@ const products = [
     const botToken = '7619911211:AAGhAsSy2lkGyvBIHq8CBDJkwEG7Hqlln7Y'
     const chatId =   '5223802166';
  
-    //try {
-    //    const response = await axios.post(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-    //        chat_id: chatId,
-    //        text:messageText,
-    // } );
-    //}catch (error) {
-    //    console.error('Error sending message:', error);
-    //}
+    try {
+       const response = await axios.post(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+           chat_id: chatId,
+           text:messageText,
+    } );
+    }catch (error) {
+       console.error('Error sending message:', error);
+    }
 }; 
     const totalPrise = cart.reduce((total, item) => total + item.prise, 0);
     return (<> 
